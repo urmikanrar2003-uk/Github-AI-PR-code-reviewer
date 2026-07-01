@@ -37,3 +37,8 @@ output "ecr_learner_url" {
   description = "ECR repository URL for learner"
   value       = aws_ecr_repository.learner.repository_url
 }
+output "cluster_autoscaler_iam_role_arn" {
+  description = "IAM role ARN for the Cluster Autoscaler"
+  value       = module.cluster_autoscaler_irsa.iam_role_arn
+}
+

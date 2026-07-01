@@ -61,7 +61,7 @@ module "eks" {
       principal_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/github-actions-ai-reviewer"
       policy_associations = {
         admin = {
-          policy_arn   = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
             type = "cluster"
           }
@@ -93,9 +93,9 @@ module "eks" {
     default = {
       instance_types = ["t3.micro"]
 
-      min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      min_size     = 3
+      max_size     = 10
+      desired_size = 3
     }
   }
 
@@ -166,15 +166,15 @@ resource "aws_db_subnet_group" "main" {
 }
 
 resource "aws_db_instance" "postgres" {
-  identifier        = "${var.cluster_name}-postgres"
-  engine            = "postgres"
-  engine_version    = "15"
-  instance_class    = "db.t3.micro"
-  allocated_storage = 20
-  db_name           = "codereviewer"
-  username          = "dbadmin"
-  password          = var.db_password
-  multi_az          = false
+  identifier          = "${var.cluster_name}-postgres"
+  engine              = "postgres"
+  engine_version      = "15"
+  instance_class      = "db.t3.micro"
+  allocated_storage   = 20
+  db_name             = "codereviewer"
+  username            = "dbadmin"
+  password            = var.db_password
+  multi_az            = false
   publicly_accessible = false
   skip_final_snapshot = true
 
@@ -234,8 +234,8 @@ resource "aws_iam_policy" "lbc" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = [
+        Effect = "Allow"
+        Action = [
           "elasticloadbalancing:*",
           "ec2:CreateSecurityGroup",
           "ec2:DeleteSecurityGroup",
@@ -337,3 +337,23 @@ resource "aws_ecr_repository" "evaluate" {
     Environment = var.environment
   }
 }
+module "cluster_autoscaler_irsa" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "~> 5.30"
+
+  role_name                        = "${var.cluster_name}-cluster-autoscaler"
+  attach_cluster_autoscaler_policy = true
+  cluster_autoscaler_cluster_names = [module.eks.cluster_name]
+
+  oidc_providers = {
+    ex = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:cluster-autoscaler"]
+    }
+  }
+
+  tags = {
+    Environment = var.environment
+  }
+}
+
