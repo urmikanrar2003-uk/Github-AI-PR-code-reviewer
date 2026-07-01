@@ -10,6 +10,7 @@ spec:
       containers:
         - name: migrate
           image:  022278165950.dkr.ecr.us-east-1.amazonaws.com/webhook:latest
+          imagePullPolicy: Always
           workingDir: /db
           command: ["alembic", "-c", "/db/alembic.ini", "upgrade", "head"]
           env:
