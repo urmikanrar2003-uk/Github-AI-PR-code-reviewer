@@ -3,10 +3,14 @@ name: Webhook CI/CD
 on:
   push:
     branches: [main]
-    paths: ["services/webhook/**"]
+    paths:
+      - "services/webhook/**"
+      - "db/**"
   pull_request:
     branches: [main]
-    paths: ["services/webhook/**"]
+    paths:
+      - "services/webhook/**"
+      - "db/**"
 
 permissions:
   id-token: write
