@@ -402,7 +402,7 @@ This allows GitHub Actions to deploy to AWS without storing long-lived AWS keys 
 Open CMD and run these commands one by one:
 
 ```
-cd "D:\MAJOR PROJECT KRISH SIR\ai-code-reviewer"
+cd "D:\ai-code-reviewer"
 ```
 
 ```
@@ -541,7 +541,7 @@ This step creates all the AWS resources your system needs: the Kubernetes cluste
 ### 11.1 Open CMD and navigate to the Terraform folder
 
 ```
-cd "D:\MAJOR PROJECT KRISH SIR\ai-code-reviewer\infra\terraform"
+cd "D:\ai-code-reviewer\infra\terraform"
 ```
 
 ### 11.2 Initialize Terraform
@@ -1366,7 +1366,7 @@ All pods must show `Running`. If any show `Pending` or `CrashLoopBackOff`, wait 
 Increment the deploy.txt files to trigger all pipelines:
 
 ```
-cd "D:\MAJOR PROJECT KRISH SIR\ai-code-reviewer"
+cd "D:\ai-code-reviewer"
 ```
 
 ```
