@@ -26,7 +26,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
         run: |
-          docker build -t $ECR_REGISTRY/evaluate:latest -f scripts/Dockerfile .
+          docker build -t $ECR_REGISTRY/evaluate:latest -f Scripts/Dockerfile .
           docker push $ECR_REGISTRY/evaluate:latest
 
       - name: Update kubeconfig
