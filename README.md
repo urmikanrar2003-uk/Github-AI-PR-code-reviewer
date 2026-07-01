@@ -2,7 +2,11 @@
 
 An automated, event-driven AI Code Reviewer built on a robust microservices architecture. This GitHub App automatically listens to Pull Request events, analyzes code changes using OpenAI, and posts intelligent review comments directly on GitHub.
 
+🎥 **[View the Project Demo here](https://drive.google.com/drive/folders/1KPLy--tNL6VF1PLOtBdEMs5PbvGfSKeE?usp=sharing)**
+
 ## 🏗️ Architecture
+
+*(Please see **`final-diagram.mmd`** in this repository for the complete visual workflow diagram.)*
 
 The system is built using a highly decoupled, event-driven microservices architecture running on Kubernetes (AWS EKS):
 
